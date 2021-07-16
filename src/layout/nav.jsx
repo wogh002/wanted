@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import IconItems from "./iconItems";
 import LoginInfo from "./loginForm/loginInfo";
+
 const Navigation = styled.nav`
   display: flex;
   align-items: center;
@@ -22,7 +23,7 @@ const ListItem = styled.li`
   flex-shrink: 0;
   letter-spacing: -0.05em;
   a {
-    padding: 0 0 21px 0;
+    padding: 21px 0 21px 0;
   }
   :hover {
     a {
@@ -40,7 +41,9 @@ const ListItem = styled.li`
       flex-grow: 1;
     }
     a {
-      padding: 0 0 18px 0;
+      padding: 21px 0 18px 0;
+    }
+    &.mobileSearch:hover {
     }
     &.desktop {
       display: block;
@@ -59,10 +62,11 @@ const ListItem = styled.li`
   }
   @media ${({ theme: { desktopL } }) => desktopL} {
     a {
-      padding: 0 0 15px 0;
+      padding: 21px 0 15px 0;
     }
   }
 `;
+
 const headerTitle = [
   { id: 1, title: "홈", type: "mobileHome" },
   { id: 2, title: "탐색", type: "mobileSearch" },
@@ -74,21 +78,38 @@ const headerTitle = [
   { id: 8, title: "Ai 합격예측", type: "desktop" },
 ];
 
-const Nav = () => (
-  <Navigation>
-    <Lists>
-      {headerTitle.map((item) => {
-        return (
-          <ListItem key={item.id} className={item.type}>
-            <a href="/">{item.title}</a>
-            {item.id === 8 && <span className="beta">Beta</span>}
-          </ListItem>
-        );
-      })}
-    </Lists>
-    <LoginInfo />
-    <IconItems />
-  </Navigation>
-);
+const mouseOver = (e) => {
+  if (e.target.name === "탐색") {
+    const section = document.querySelector(".dropdown");
+    const header = document.querySelector(".header");
+    section.classList.add("show");
+    header.classList.add("removeBottom");
+  } else {
+    const section = document.querySelector(".dropdown");
+    const header = document.querySelector(".header");
+    section.classList.remove("show");
+    header.classList.remove("removeBottom");
+  }
+};
+const Nav = () => {
+  return (
+    <Navigation>
+      <Lists>
+        {headerTitle.map((item) => {
+          return (
+            <ListItem key={item.id} className={item.type}>
+              <a href="/" onMouseOver={mouseOver} name={item.title}>
+                {item.title}
+              </a>
+              {item.id === 8 && <span className="beta">Beta</span>}
+            </ListItem>
+          );
+        })}
+      </Lists>
+      <LoginInfo />
+      <IconItems />
+    </Navigation>
+  );
+};
 
 export default Nav;

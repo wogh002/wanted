@@ -1,7 +1,7 @@
 const size = {
-  tablet: "849px",
+  tablet: "886px",
   desktop: "1150px",
-  desktopL: "1250px",
+  desktopL: "1289px",
 };
 export const theme = {
   tablet: `(min-width:${size.tablet})`,

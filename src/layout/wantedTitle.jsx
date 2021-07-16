@@ -14,7 +14,6 @@ const WantedTitleContainer = styled.div`
 const Title = styled.h1`
   font-weight: 700;
   font-size: 23px;
-
   letter-spacing: -0.05em;
   @media ${({ theme: { tablet } }) => tablet} {
     margin-right: 50px;

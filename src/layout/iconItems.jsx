@@ -16,7 +16,7 @@ const Span = styled.span`
     margin-right: 20px;
   }
 `;
-const IconItems = (props) => (
+const IconItems = () => (
   <IconContainer className="disappear">
     <Span>
       <i className="fas fa-search"></i>
