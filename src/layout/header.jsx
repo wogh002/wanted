@@ -2,6 +2,14 @@ import React, { useRef } from "react";
 import Nav from "./nav";
 import WantedTitle from "./wantedTitle";
 import styled from "styled-components";
+import {
+  sale,
+  media,
+  humanAffair,
+  game,
+  finance,
+  categories,
+} from "../json/dropdownMenu/menu";
 
 const HeaderContainer = styled.header`
   padding: 25px 20px;
@@ -31,18 +39,17 @@ const HeaderInfo = styled.div`
 const Section = styled.section`
   opacity: 0;
   height: 0;
-  transition: all 110ms ease-in-out;
+  transition: all 200ms ease-in-out;
   @media ${({ theme: { tablet } }) => tablet} {
     &.hide {
       opacity: 0;
       height: 0;
     }
-    //에니메이션
     &.show {
       display: block;
       opacity: 1;
       height: 300px;
-      padding-top: 50px;
+      padding-top: 60px;
     }
   }
 `;
@@ -56,96 +63,183 @@ const DropdownDetail = styled.div`
 `;
 const OrderList = styled.ol`
   @media ${({ theme: { tablet } }) => tablet} {
+    width: 16%;
     margin-right: 20px;
+    letter-spacing: -0.06em;
+    font-size: 15px;
+    opacity: 0.7;
+    :last-child li div {
+      font-size: 17px;
+      font-weight: 700;
+    }
   }
 `;
 const OrderListItem = styled.li`
   @media ${({ theme: { tablet } }) => tablet} {
-    margin-bottom: 13px;
+    margin-bottom: 15px;
   }
 `;
+const MoreContainer = styled.div`
+  @media ${({ theme: { tablet } }) => tablet} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    & span {
+      opacity: 0.5;
+      font-size: 13px;
+    }
+  }
+`;
+
+const Dimmed = styled.div`
+  opacity: 0;
+  @media ${({ theme: { tablet } }) => tablet} {
+    &.show {
+      opacity: 0.1;
+      position: fixed;
+      background-color: black;
+      height: 100%;
+      width: 100%;
+    }
+  }
+`;
+
 const Header = () => {
   const dropdownSection = useRef();
-  const mouseLeave = () => {
+  const header = useRef();
+  const dimmed = useRef();
+  const doDestructuring = (item) => {
     const {
       current: { classList },
-    } = dropdownSection;
-    classList.add("hide");
-    classList.remove("show");
+    } = item;
+    return classList;
+  };
+  const mouseOverAddClass = () => {
+    doDestructuring(dropdownSection).add("show");
+    doDestructuring(header).add("removeBottom");
+    dimmed.current.classList.add("show");
+  };
+  const mouseOverRemoveClass = () => {
+    doDestructuring(dropdownSection).remove("show");
+    doDestructuring(header).remove("removeBottom");
+    dimmed.current.classList.remove("show");
+  };
+  const mouseOver = ({ target }) =>
+    target.name === "탐색" ? mouseOverAddClass() : mouseOverRemoveClass();
+
+  const mouseLeave = () => {
+    const dropdownClassList = doDestructuring(dropdownSection);
+    const headerClassList = doDestructuring(header);
+    headerClassList.remove("removeBottom");
+    dropdownClassList.add("hide");
+    dropdownClassList.remove("show");
+    dimmed.current.classList.remove("show");
   };
   return (
     <>
-      <HeaderContainer className="header" onMouseLeave={mouseLeave}>
+      <HeaderContainer
+        className="header"
+        onMouseLeave={mouseLeave}
+        ref={header}
+      >
         <HeaderInfo>
           <WantedTitle />
-          <Nav />
+          <Nav mouseOver={mouseOver} />
         </HeaderInfo>
         <Section className="dropdown" ref={dropdownSection}>
           <DropdownDetail>
             <OrderList>
-              <OrderListItem>기업영업</OrderListItem>
-              <OrderListItem>외부영업</OrderListItem>
-              <OrderListItem>영업관리자</OrderListItem>
-              <OrderListItem>기술영업</OrderListItem>
-              <OrderListItem>주요고객사 담당사</OrderListItem>
-              <OrderListItem>솔루션 컨설턴트</OrderListItem>
-              <OrderListItem>해외영업</OrderListItem>
-              <OrderListItem>더보기</OrderListItem>
+              {sale.map((item) => (
+                <OrderListItem key={item.id}>
+                  <a href="/">{item.title !== "더보기" && item.title}</a>
+                  {item.title === "더보기" && (
+                    <MoreContainer>
+                      <a href="/">{item.title}</a>
+                      <span>
+                        <i className="fas fa-chevron-right"></i>
+                      </span>
+                    </MoreContainer>
+                  )}
+                </OrderListItem>
+              ))}
             </OrderList>
             <OrderList>
-              <OrderListItem>콘텐츠 크리에이터</OrderListItem>
-              <OrderListItem>PD</OrderListItem>
-              <OrderListItem>영상 편집가</OrderListItem>
-              <OrderListItem>에디터</OrderListItem>
-              <OrderListItem>비디오 제작</OrderListItem>
-              <OrderListItem>작가</OrderListItem>
-              <OrderListItem>출판 기획자</OrderListItem>
-              <OrderListItem>더보기</OrderListItem>
+              {media.map((item) => (
+                <OrderListItem key={item.id}>
+                  <a href="/">{item.title !== "더보기" && item.title}</a>
+                  {item.title === "더보기" && (
+                    <MoreContainer>
+                      <a href="/">{item.title}</a>
+                      <span>
+                        <i className="fas fa-chevron-right"></i>
+                      </span>
+                    </MoreContainer>
+                  )}
+                </OrderListItem>
+              ))}
             </OrderList>
             <OrderList>
-              <OrderListItem>인사담당</OrderListItem>
-              <OrderListItem>리크루터</OrderListItem>
-              <OrderListItem>조직 문화</OrderListItem>
-              <OrderListItem>평가 보상</OrderListItem>
-              <OrderListItem>헤드헌터</OrderListItem>
-              <OrderListItem>HRD</OrderListItem>
-              <OrderListItem>HRBP</OrderListItem>
-              <OrderListItem>더보기</OrderListItem>
+              {humanAffair.map((item) => (
+                <OrderListItem key={item.id}>
+                  <a href="/">{item.title !== "더보기" && item.title}</a>
+                  {item.title === "더보기" && (
+                    <MoreContainer>
+                      <a href="/">{item.title}</a>
+                      <span>
+                        <i className="fas fa-chevron-right"></i>
+                      </span>
+                    </MoreContainer>
+                  )}
+                </OrderListItem>
+              ))}
             </OrderList>
             <OrderList>
-              <OrderListItem>게임 기획자</OrderListItem>
-              <OrderListItem>게임 그래픽 디자이너</OrderListItem>
-              <OrderListItem>모바일 게임 개발자</OrderListItem>
-              <OrderListItem>게임 클라이언트 개발자</OrderListItem>
-              <OrderListItem>게임 아티스트</OrderListItem>
-              <OrderListItem>유니티 개발자</OrderListItem>
-              <OrderListItem>게임 서버 개발자</OrderListItem>
-              <OrderListItem>더보기</OrderListItem>
+              {game.map((item) => (
+                <OrderListItem key={item.id}>
+                  <a href="/">{item.title !== "더보기" && item.title}</a>
+                  {item.title === "더보기" && (
+                    <MoreContainer>
+                      <a href="/">{item.title}</a>
+                      <span>
+                        <i className="fas fa-chevron-right"></i>
+                      </span>
+                    </MoreContainer>
+                  )}
+                </OrderListItem>
+              ))}
             </OrderList>
             <OrderList>
-              <OrderListItem>회계 담당</OrderListItem>
-              <OrderListItem>재무 담당자</OrderListItem>
-              <OrderListItem>IR</OrderListItem>
-              <OrderListItem>투자 증권</OrderListItem>
-              <OrderListItem>재무 분석가 </OrderListItem>
-              <OrderListItem>애널리스트</OrderListItem>
-              <OrderListItem>내부통제 담당자</OrderListItem>
-              <OrderListItem>더보기</OrderListItem>
+              {finance.map((item) => (
+                <OrderListItem key={item.id}>
+                  <a href="/">{item.title !== "더보기" && item.title}</a>
+                  {item.title === "더보기" && (
+                    <MoreContainer>
+                      <a href="/">{item.title}</a>
+                      <span>
+                        <i className="fas fa-chevron-right"></i>
+                      </span>
+                    </MoreContainer>
+                  )}
+                </OrderListItem>
+              ))}
             </OrderList>
             <OrderList>
-              <OrderListItem>엔지니어링·설계</OrderListItem>
-              <OrderListItem>물류·무역</OrderListItem>
-              <OrderListItem>제조·생산</OrderListItem>
-              <OrderListItem>의료·제약·바이오</OrderListItem>
-              <OrderListItem>교육 </OrderListItem>
-              <OrderListItem>법률·법집행기관</OrderListItem>
-              <OrderListItem>식·음료</OrderListItem>
-              <OrderListItem>건설·시설</OrderListItem>
-              <OrderListItem>공공·복지</OrderListItem>
+              {categories.map((item) => (
+                <OrderListItem key={item.id}>
+                  <MoreContainer>
+                    <a href="/">{item.title}</a>
+                    <span>
+                      <i className="fas fa-chevron-right"></i>
+                    </span>
+                  </MoreContainer>
+                </OrderListItem>
+              ))}
             </OrderList>
           </DropdownDetail>
         </Section>
       </HeaderContainer>
+      <Dimmed ref={dimmed} className="dimmed" />
     </>
   );
 };

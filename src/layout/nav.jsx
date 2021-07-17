@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import IconItems from "./iconItems";
 import LoginInfo from "./loginForm/loginInfo";
+import { menu } from "../json/menu";
 
 const Navigation = styled.nav`
   display: flex;
@@ -66,36 +67,11 @@ const ListItem = styled.li`
     }
   }
 `;
-
-const headerTitle = [
-  { id: 1, title: "홈", type: "mobileHome" },
-  { id: 2, title: "탐색", type: "mobileSearch" },
-  { id: 3, title: "커리어 성장", type: "mobileGrowUp" },
-  { id: 4, title: "직군별 연봉", type: "desktop" },
-  { id: 5, title: "이력서", type: "desktop" },
-  { id: 6, title: "매치업", type: "desktop" },
-  { id: 7, title: "프리랜서", type: "desktop" },
-  { id: 8, title: "Ai 합격예측", type: "desktop" },
-];
-
-const mouseOver = (e) => {
-  if (e.target.name === "탐색") {
-    const section = document.querySelector(".dropdown");
-    const header = document.querySelector(".header");
-    section.classList.add("show");
-    header.classList.add("removeBottom");
-  } else {
-    const section = document.querySelector(".dropdown");
-    const header = document.querySelector(".header");
-    section.classList.remove("show");
-    header.classList.remove("removeBottom");
-  }
-};
-const Nav = () => {
+const Nav = ({ mouseOver }) => {
   return (
     <Navigation>
       <Lists>
-        {headerTitle.map((item) => {
+        {menu.map((item) => {
           return (
             <ListItem key={item.id} className={item.type}>
               <a href="/" onMouseOver={mouseOver} name={item.title}>
