@@ -2,7 +2,7 @@
   "name": "wanted-project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/wogh002/wanted",
+  "homepage": "https://wogh002.github.io/wanted",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@testing-library/jest-dom": "^5.11.4",
