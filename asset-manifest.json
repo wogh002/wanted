@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/wogh002/wanted.git/static/css/main.edf4e985.chunk.css",
+    "main.js": "/wogh002/wanted.git/static/js/main.47ca1278.chunk.js",
+    "main.js.map": "/wogh002/wanted.git/static/js/main.47ca1278.chunk.js.map",
+    "runtime-main.js": "/wogh002/wanted.git/static/js/runtime-main.f2586c90.js",
+    "runtime-main.js.map": "/wogh002/wanted.git/static/js/runtime-main.f2586c90.js.map",
+    "static/js/2.e5ccd929.chunk.js": "/wogh002/wanted.git/static/js/2.e5ccd929.chunk.js",
+    "static/js/2.e5ccd929.chunk.js.map": "/wogh002/wanted.git/static/js/2.e5ccd929.chunk.js.map",
+    "index.html": "/wogh002/wanted.git/index.html",
+    "static/css/main.edf4e985.chunk.css.map": "/wogh002/wanted.git/static/css/main.edf4e985.chunk.css.map",
+    "static/js/2.e5ccd929.chunk.js.LICENSE.txt": "/wogh002/wanted.git/static/js/2.e5ccd929.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f2586c90.js",
+    "static/js/2.e5ccd929.chunk.js",
+    "static/css/main.edf4e985.chunk.css",
+    "static/js/main.47ca1278.chunk.js"
+  ]
+}
